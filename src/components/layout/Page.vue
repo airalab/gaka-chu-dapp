@@ -19,24 +19,6 @@
             <v-dialog v-model="dialog" width="500">
               <v-card>
                 <v-card-text style="padding-top:20px">
-                  <h3>Манифест</h3>
-                  <p>
-                    Развивающиеся технологии в области машинного обучения и
-                    нейронных сетей позволяют роботизированным комплексам
-                    показывать ранее недостижимые результаты в управлении и
-                    коллаборации с человеком. Роботы уже потихоньку начинают
-                    работать в непосредственной близости с человеком, а
-                    благодаря блокчейн технологиям они становятся и
-                    непосредственными участниками нашей экономики. Gaka-chu
-                    является самостоятельным экономическим агентом благодаря
-                    контрактам робономики и способен самостоятельно генерировать
-                    изображения, но не имеет прав на свои произведения. В связи
-                    с этим мы, группа студентов ИТМО под руководством Александра
-                    Александровича Капитонова - кандидата технических наук,
-                    отказываемся от прав на произведения, создаваемые
-                    роботом-художником “Gaka-chu”, и признаем права
-                    собственности за роботом-художником “Gaka-chu”.
-                  </p>
                   <h3>Manifesto</h3>
                   <p>
                     Developing technologies in the field of machine learning and
@@ -46,12 +28,11 @@
                     proximity with humans, and due to blockchain technologies,
                     they also become direct participants in our economy.
                     Gaka-chu is an independent economic agent thanks to
-                    robonomics contracts and is able to generate images
+                    robonomics contracts. Gaka-chu is able to generate images
                     independently, but has no rights to its works. In this
-                    regard, We, group of ITMO students led dy Alexandr
-                    Kapitonov, PhD and Dean of the Faculty of Infocommunication
+                    regard, We, group of ITMO students led by Alexandr
+                    Kapitonov, PhD, Dean of the Faculty of Infocommunication
                     Technologies, give up the rights to works created by the
-                    robot-artist “Gaka-chu”, and accept the ownership of the
                     robot-artist “Gaka-chu”.
                   </p>
                 </v-card-text>
