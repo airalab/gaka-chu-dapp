@@ -24,6 +24,8 @@
                   Coming soon
                 </h3>
                 <v-divider style="margin: 5px;" />
+                <b>{{ cell.name }}</b>
+                <v-divider style="margin: 5px;" />
                 Start day: {{ cell.dateStart }}
               </v-card-text>
             </v-card>
@@ -40,6 +42,8 @@
                 <h3 style="text-transform: uppercase;margin: 10px;">
                   Auction finished!
                 </h3>
+                <v-divider style="margin: 5px;" />
+                <b>{{ cell.name }}</b>
                 <v-divider style="margin: 5px;" />
                 Highest bid - {{ cell.cost }}
                 <v-divider style="margin: 5px;" />
@@ -61,6 +65,8 @@
                 <h3 style="text-transform: uppercase;margin: 10px;">
                   Auction started!
                 </h3>
+                <v-divider style="margin: 5px;" />
+                <b>{{ cell.name }}</b>
                 <v-divider style="margin: 5px;" />
                 Highest bid - {{ cell.cost }}
                 <v-divider style="margin: 5px;" />
