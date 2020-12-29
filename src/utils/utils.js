@@ -24,5 +24,5 @@ export const watchTx = (web3, tx) => {
 };
 
 export const getFormatDate = (date) => {
-  return moment(date, "YYYY-MM-DD HH:mm:ss").format("DD.MM.YYYY");
+  return moment(date, "YYYY-MM-DD HH:mm:ss").format("MMM DD, hh:mmA Z");
 };
