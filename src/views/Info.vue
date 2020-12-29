@@ -41,9 +41,9 @@
                   Auction finished!
                 </h3>
                 <v-divider style="margin: 5px;" />
-                Highest bid - {{ cell.cost }}.
+                Highest bid - {{ cell.cost }}
                 <v-divider style="margin: 5px;" />
-                Last day: {{ cell.dateEnd }}.
+                Last day: {{ cell.dateEnd }}
                 <v-btn
                   :to="`/auction/${cell.id}`"
                   color="blue-grey lighten-2"
@@ -62,9 +62,9 @@
                   Auction started!
                 </h3>
                 <v-divider style="margin: 5px;" />
-                Highest bid - {{ cell.cost }}.
+                Highest bid - {{ cell.cost }}
                 <v-divider style="margin: 5px;" />
-                Last day: {{ cell.dateEnd }}.
+                Last day: {{ cell.dateEnd }}
                 <v-btn
                   :to="`/auction/${cell.id}`"
                   color="success"
@@ -103,10 +103,8 @@ export default {
       this.cells = _map(list, (v) => {
         return {
           ...v,
-          dateStart: getFormatDate(
-            new Date(v.dateStart.replace(" +00:00", ""))
-          ),
-          dateEnd: getFormatDate(new Date(v.dateEnd.replace(" +00:00", ""))),
+          dateStart: getFormatDate(v.dateStart),
+          dateEnd: getFormatDate(v.dateEnd),
           cost: `${number
             .fromWei(Number(v.cost), config.TOKEN_DECIMALS)
             .toString()} XRT`

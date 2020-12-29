@@ -94,7 +94,6 @@ export default {
   data() {
     return {
       title: "Auction",
-      step: config.PRICE_STEP,
       status: "auction",
       minCost: 0,
       dateStart: "",
@@ -116,16 +115,16 @@ export default {
     const upAuction = (data) => {
       this.status = data.status;
       this.liability = data.liability;
-      this.dateStart = getFormatDate(
-        new Date(data.dateStart.replace(" +00:00", ""))
-      );
-      this.dateEnd = getFormatDate(
-        new Date(data.dateEnd.replace(" +00:00", ""))
-      );
+      this.dateStart = getFormatDate(data.dateStart);
+      this.dateEnd = getFormatDate(data.dateEnd);
       this.bid = `${number
         .fromWei(Number(data.cost), config.TOKEN_DECIMALS)
         .toString()} XRT`;
-      this.minCost = Number(data.cost) + this.step;
+      this.minCost =
+        Number(data.cost) +
+        (Number(data.cost) > 0
+          ? Number(config.PRICE_STEP)
+          : Number(config.PRICE_MIN));
       this.account = data.account;
       this.objective = data.objective;
       this.vid = youTubeGetID(data.vid);

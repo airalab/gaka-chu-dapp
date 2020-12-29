@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const watchTx = (web3, tx) => {
   const transactionReceiptAsync = (resolve, reject) => {
     web3.eth.getTransactionReceipt(tx, (error, receipt) => {
@@ -22,25 +24,5 @@ export const watchTx = (web3, tx) => {
 };
 
 export const getFormatDate = (date) => {
-  const year = date.getFullYear();
-  let month = (1 + date.getMonth()).toString();
-  month = month.length > 1 ? month : "0" + month;
-  let day = date.getDate().toString();
-  day = day.length > 1 ? day : "0" + day;
-  return day + "." + month + "." + year;
-};
-
-export const getFormatDateTime = (date) => {
-  const year = date.getFullYear();
-  let month = (1 + date.getMonth()).toString();
-  month = month.length > 1 ? month : "0" + month;
-  let day = date.getDate().toString();
-  day = day.length > 1 ? day : "0" + day;
-  let hours = date.getHours().toString();
-  hours = hours.length > 1 ? hours : "0" + hours;
-  let min = date.getMinutes().toString();
-  min = min.length > 1 ? min : "0" + min;
-  let sec = date.getSeconds().toString();
-  sec = sec.length > 1 ? sec : "0" + sec;
-  return year + "-" + month + "-" + day + " " + hours + ":" + min + ":" + sec;
+  return moment(date, "YYYY-MM-DD HH:mm:ss").format("DD.MM.YYYY");
 };
