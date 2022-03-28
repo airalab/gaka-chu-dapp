@@ -120,8 +120,8 @@ export default {
 <style>
 .text {
   color: black;
-  padding-left: 320px;
-  padding-right: 320px;
+  padding-left: 19%;
+  padding-right: 19%;
   text-align: center;
 }
 
