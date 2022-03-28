@@ -9,16 +9,43 @@
         </div>
       </div>
     </header>
-    <v-main style="margin-bottom: 50px;">
+    <v-main style="margin-bottom: 50px">
       <v-container grid-list-md>
         <v-layout justify-center row wrap>
-          <v-flex md12 style="text-align:center;">
+          <v-flex md12 style="text-align: center">
             <a @click="dialog = true"
               ><img src="assets/i/manifest.png" width="60%"
             /></a>
+            <v-card-text>
+              <p class="text">
+                The physical autonomy of robots is well understood both
+                theoretically and practically. By contrast, there is almost no
+                research exploring their potential economic autonomy. In this
+                paper, we present the first economically autonomous robot -- a
+                robot able to produce marketable goods while having full control
+                over the use of its generated income. Gaka-chu ("painter" in
+                Japanese) is a 6-axis robot arm that creates artistic paintings
+                of Japanese kanjis from an autoselected keyword. By using a
+                blockchain-based smart contract, Gaka-chu can autonomously list
+                a painting it made for sale in an online auction. In this
+                transaction, the robot interacts with the human bidders as a
+                peer not as a tool. Using the blockchain-based smart contract,
+                Gaka-chu can then use its income from selling paintings to
+                replenish its resources by autonomously ordering materials from
+                an online art shop, and maintain its activity by remunerating a
+                human assistant for manual tasks such as placing canvases. We
+                built the Gaka-chu prototype with an Ethereum-based smart
+                contract and ran a 6-month long experiment, during which the
+                robot painted and sold four paintings one-by-one, simultaneously
+                using its income to purchase art supplies, human assistance, and
+                paid initial investors. In this work, we present the results of
+                the experiments conducted and discuss the implications of
+                economically autonomous robots.
+              </p>
+            </v-card-text>
             <v-dialog v-model="dialog" width="500">
               <v-card>
-                <v-card-text style="padding-top:20px">
+                <v-card-text style="padding-top: 20px">
                   <h3>Manifesto</h3>
                   <p>
                     Developing technologies in the field of machine learning and
@@ -41,18 +68,11 @@
           </v-flex>
         </v-layout>
       </v-container>
-      <v-container fluid grid-list-md>
-        <v-layout row wrap>
-          <v-flex lg12>
-            <slot />
-          </v-flex>
-        </v-layout>
-      </v-container>
     </v-main>
     <v-footer
       fixed
       class="pa-1"
-      style="height:auto;border-top: 1px solid #dedede;"
+      style="height: auto; border-top: 1px solid #dedede"
     >
       <v-spacer></v-spacer>
       <div>
@@ -98,6 +118,13 @@ export default {
 </script>
 
 <style>
+.text {
+  color: black;
+  padding-left: 320px;
+  padding-right: 320px;
+  text-align: center;
+}
+
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
