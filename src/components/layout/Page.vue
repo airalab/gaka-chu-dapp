@@ -43,6 +43,151 @@
                 economically autonomous robots.
               </p>
             </v-card-text>
+            <div class="logo">
+              <h2>Link to materials</h2>
+              <v-simple-table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Link</th>
+                  </tr>
+                  <tr>
+                    <td>General Software Architecture of Gaka-chu</td>
+                    <td>article</td>
+                    <td>
+                      <a
+                        href="https://gateway.ipfs.io/ipfs/QmS6ZnKwCNqcF4ESmetGuBMRchqmWidBQD53LiYmtjwroZ"
+                        >Link</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Using NFTs to Conduct an Auction</td>
+                    <td>article</td>
+                    <td>
+                      <a
+                        href="https://gateway.ipfs.io/ipfs/QmP31d56mmR7tCf8orwkYpwwzecnfCWbzYSaE4P1k8JeF8"
+                        >Link</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Ordering Consumables in Art Shop via Robonomics</td>
+                    <td>article</td>
+                    <td>
+                      <a
+                        href="https://gateway.ipfs.io/ipfs/QmWd4TdKgN2RAUi2DJ4HwbsZXnGHrzJBxy2WftWFWHCqf4"
+                        >Link</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Gaka-chu software repositories</td>
+                    <td>repos</td>
+                    <td>
+                      <a
+                        href="https://github.com/Multi-Agent-io/gaka-chu.online"
+                        >Link</a
+                      >
+                    </td>
+                  </tr>
+                </thead>
+              </v-simple-table>
+            </div>
+            <div class="logo">
+              <h2>Videos</h2>
+            </div>
+            <div class="media">
+              <p>
+                Gaka-Chu: The Robot That Dreams of Being an Artist
+              </p>
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/GxlYxaykqTU"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="media">
+              <p>
+                Gaka-chu draws Twitter trending words from hashtags
+              </p>
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/xSD_lsrAA0I"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="media">
+              <p>
+                First launches of Gaka-chu
+              </p>
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/gQHtsI2Kfv4"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="logo">
+              <h2>Photos</h2>
+            </div>
+            <div class="media">
+              <img
+                src="../../../public/assets/i/gaka-chu-first-step.jpg"
+                width="60%"
+              />
+              <p>
+                First steps of Gaka-chu
+              </p>
+            </div>
+            <div class="media">
+              <img
+                src="../../../public/assets/i/drawing-room.jpg"
+                width="60%"
+              />
+              <p>
+                The first drawing room for Gaka-chu in Tolyatti
+              </p>
+            </div>
+            <div class="media">
+              <img
+                src="../../../public/assets/i/drawing-room-tgl-2.jpg"
+                width="60%"
+              />
+              <p>
+                Gaka-chu is working in the old drawing room, Tolyatti
+              </p>
+            </div>
+            <div class="media">
+              <img
+                src="../../../public/assets/i/gaka-chu-spb.jpg"
+                width="60%"
+              />
+              <p>
+                Gaka-chu in a new place, St. Petersburg
+              </p>
+            </div>
+            <div class="media">
+              <img
+                src="../../../public/assets/i/gaka-chu-completed.jpg"
+                width="60%"
+              />
+              <p>
+                Completed work with the phrase "Women's History Month"
+              </p>
+            </div>
             <v-dialog v-model="dialog" width="500">
               <v-card>
                 <v-card-text style="padding-top: 20px">
@@ -120,6 +265,22 @@ export default {
 <style>
 .text {
   color: black;
+  padding-left: 19%;
+  padding-right: 19%;
+  text-align: center;
+}
+
+.logo {
+  color: black;
+  margin-top: 3%;
+  padding-left: 19%;
+  padding-right: 19%;
+  text-align: left;
+}
+
+.media {
+  color: black;
+  margin-top: 3%;
   padding-left: 19%;
   padding-right: 19%;
   text-align: center;
