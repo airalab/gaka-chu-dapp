@@ -283,12 +283,396 @@
               >
             </div>
             <div class="logo">
+              <h2>Ordering Consumables in Art Shop via Robonomics</h2>
+            </div>
+            <div class="text">
+              <p>
+                The ordering process with art shop agent is organized through
+                the creation of a "promisee-promisor" relationship between the
+                robot and the store system based on the standard Robonomics on
+                Ethereum. Each of them acts as an autonomous agent capable of
+                creating and accepting orders for performing some work with
+                payment in cryptocurrency. In our case, Gaka-chu acts as a
+                Promisee, and an art shop agent acts as a Promisor<sup
+                  ><a href="#fn1" id="ref1">1</a></sup
+                >).
+              </p>
+              <p>
+                Gaka-chu generates a <samp>demand</samp> message by filling in
+                all required fields. This message is seen by the ROS node of the
+                store, which accepts it for execution by sending an
+                <samp>offer</samp> message with a matched condition. The
+                Robonomics Network node, which monitors the occurrence of
+                matches between supply and demand, creates a smart contract with
+                the liability between Gaka-chu and an art shop agent on the
+                Ethereum network. After that, the required number of tokens is
+                debited from the robot's address and blocked until the order is
+                completed. After completing the order, the art shop agent sends
+                a finalization message and tokens are sent to the store address,
+                minus a network fee.
+              </p>
+              <ol>
+                <li>
+                  The <samp>model</samp> field specifies the IPFS hash for the
+                  specification file of the required agent behavior model. In
+                  our case, the behavior is to sell drawing supplies.
+                </li>
+                <li>
+                  The <samp>objective</samp> field specifies the IPFS hash of
+                  the rosbag file. This file describes the necessary ROS topics
+                  and parameters for them. Subscribing on topics, the store
+                  agent receives the purchase order.
+                </li>
+                <li>
+                  The fields <samp>token</samp> and <samp>cost</samp> contain
+                  the address of the payment token and amount of tokens.
+                </li>
+                <li>
+                  The <samp>lighthouse</samp> and <samp>validator</samp> fields
+                  are service fields in the Robonomics Network and are needed to
+                  control the execution of liability between agents.
+                </li>
+                <li>
+                  In the last <samp>sender</samp> and
+                  <samp>signature</samp> fields, Gaka-chu specifies the address
+                  of its cryptowallet and the signature of the
+                  <samp>demand</samp> message.
+                </li>
+              </ol>
+              <p>
+                The <samp>demand</samp> message is sent to "Liability Market",
+                implemented as an IPFS pubsub network. This message is seen by
+                the ROS <samp>trader_node</samp> of the store, which accepts it
+                for execution by sending an <samp>offer</samp> message with a
+                matched condition. The Robonomics Network node, which monitors
+                the occurrence of matches between supply and demand, creates a
+                smart contract with the liability between Gaka-chu and an art
+                shop agent on the Ethereum network. After that, the required
+                number of tokens is debited from the robot's address and blocked
+                until the order is completed. From this moment on, the
+                <samp>worker_node</samp> of the store can start processing the
+                order. After completing the order, the art shop agent sends a
+                finalization message and tokens are sent to the store address,
+                minus a network fee.
+              </p>
+              <p>
+                Below are the results obtained during one of the test for
+                purchase of consumables. Agent-agent interaction in the
+                Robonomics Network runs through an intermediary, the so-called
+                ``Provider'' node, which searches for a match between supply and
+                demand. Providers are controlled by the "Lighthouse" - a special
+                smart contract, which performs a transaction to Ethereum when
+                the Provider finds a match. <br />
+                Ethereum addresses of participating nodes and smart contracts
+                are presented below:
+              </p>
+              <ol>
+                <li>
+                  Gaka-chu -
+                  <samp>0xCc3672C869c923B90F2C1BfbA2C7801e3924114A </samp>
+                </li>
+                <li>
+                  Art shop agent -
+                  <samp> 0x128Fba3E5315118ba075f591b54F8139193663a5 </samp>
+                </li>
+                <li>
+                  Liability contract -
+                  <samp> 0x94ce20E486CCA74df5f9E69eb6D522c997BFBBc9 </samp>
+                </li>
+                <li>
+                  Lighthouse contract -
+                  <samp> 0xD40AC7F1e5401e03D00F5aeC1779D8e5Af4CF9f1 </samp>
+                </li>
+                <li>
+                  Provider -
+                  <samp> 0x420029e64F849AA3De300D2ad86075aD32f01680 </samp>
+                </li>
+                <br />
+              </ol>
+              <p>
+                Prior to the start of orders, Gaka-chu performs an approval<sup
+                  ><a href="#aprroval" id="aprroval">2</a></sup
+                >
+                transaction of the form
+                <samp>approve(address guy, uint256 wad)</samp> in Ethereum. This
+                is necessary to allow the Provider to charge the required amount
+                of wrapped ETH from robot's address when creating a liability
+                contract. This amount is "blocked" when the contract is created
+                until the order is completed.
+              </p>
+              <p>
+                As described above, the robot should complete the following
+                task: when the counter of the remaining canvases reaches 1,
+                Gaka-chu needs to create an order for the art shop agent with 5
+                canvases, 1 brush and 1 set of paints (0.0075 ETH in total). The
+                robot first generates the <samp>demand</samp> message to send to
+                IPFS pubsub.
+              </p>
+              <p class="media">Gaka-chu logs when forming the order</p>
+              <p>
+                <code
+                  style="color: #333; background-color: #f2f2f2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif"
+                >
+                  [rosout][INFO] 2021-09-03 15:43:44,624: Previous number of
+                  canvases: 2 <br />
+                  [rosout][INFO] 2021-09-03 15:43:44,627: Current number of
+                  canvases: 1 <br />
+                  [rosout][INFO] 2021-09-03 15:43:44,631: Need to order
+                  canvases. <br />
+                  [rosout][INFO] 2021-09-03 15:43:44,955: Creating a demand...
+                  <br />
+                  [rosout][INFO] 2021-09-03 15:43:44,956: model: <br />
+                  multihash: "QmZq9axSqwSVdGsJ4HQ5Mjucu1CW2xAWecmXCb5Y5ku 47T"
+                  <br />
+                  objective: <br />
+                  multihash: "QmTGY5N4XSqYivgN1aVxtwx27s5ChC4KoJekq7gjShu GyA"
+                  <br />
+                  token: <br />
+                  address: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2" <br />
+                  cost: <br />
+                  uint256: "7500000000000000" <br />
+                  lighthouse: <br />
+                  address: "0xD40AC7F1e5401e03D00F5aeC1779D8e5Af4CF9f1" <br />
+                  validator: <br />
+                  address: "0x0000000000000000000000000000000000000000" <br />
+                  validatorFee: <br />
+                  uint256: "0" <br />
+                  deadline: <br />
+                  uint256: "13154633" <br />
+                  sender: <br />
+                  address: "0xCc3672C869c923B90F2C1BfbA2C7801e3924114A" <br />
+                  nonce: <br />
+                  uint256: "0" <br />
+                  signature: [] <br />
+                  [rosout][INFO] 2021-09-03 15:43:46,962: Published!
+                </code>
+              </p>
+              <p>
+                Here, the <samp>model</samp> field contains an IPFS link to the
+                file, with a description of the required service, which
+                coincides with the art shop agent's behavior model. The
+                <samp>objective</samp> field contains an IPFS link to the rosbag
+                file with order parameters.
+              </p>
+              <p class="media">
+                Python script that creates a rosbag file with order parameters
+              </p>
+              <p>
+                <code
+                  style="color: #333; background-color: #f2f2f2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif"
+                >
+                  import rosbag <br />
+                  from std_msgs.msg import String <br />
+                  bag = rosbag.Bag('kuka_buy_consumables_objective.bag', 'w')
+                  <br />
+                  bag.write('/brushes', String("1")) <br />
+                  bag.write('/canvases', String("5")) <br />
+                  bag.write('/paint', String("1")) <br />
+                  bag.close() <br />
+                </code>
+              </p>
+              <p>
+                ROS <samp>trader_node</samp> of art shop agent, upon seeing the
+                <samp>demand</samp> message, generates a counter
+                <samp>offer</samp> message and also sends it to IPFS pubsub.
+              </p>
+              <p class="media">
+                Shop agent logs when a demand message is detected and an offer
+                message is generated
+              </p>
+              <p>
+                <code
+                  style="color: #333; background-color: #f2f2f2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif"
+                >
+                  [rosout][INFO] 2021-09-03 15:43:47,320: Incoming demand model:
+                  <br />
+                  multihash: "QmZq9axSqwSVdGsJ4HQ5Mjucu1CW2xAWecmXCb5Y5ku 47T"
+                  <br />
+                  objective: <br />
+                  multihash: "QmTGY5N4XSqYivgN1aVxtwx27s5ChC4KoJekq7gjSh uGyA"
+                  <br />
+                  token: <br />
+                  address: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2" <br />
+                  cost: <br />
+                  uint256: "7500000000000000" <br />
+                  lighthouse: <br />
+                  address: "0xD40AC7F1e5401e03D00F5aeC1779D8e5Af4CF9f1" <br />
+                  validator: <br />
+                  address: "0x0000000000000000000000000000000000000000" <br />
+                  validatorFee: <br />
+                  uint256: "0" <br />
+                  deadline: <br />
+                  uint256: "13154633" <br />
+                  sender: <br />
+                  address: "0xCc3672C869c923B90F2C1BfbA2C7801e3924114A" <br />
+                  nonce: <br />
+                  uint256: "0" <br />
+                  signature: []... <br />
+                  [rosout][INFO] 2021-09-03 15:43:47,322: For my model and
+                  token! <br />
+                  [rosout][INFO] 2021-09-03 15:43:47,323: Making offer... <br />
+                  [rosout][INFO] 2021-09-03 15:43:47,492: model: <br />
+                  multihash: "QmZq9axSqwSVdGsJ4HQ5Mjucu1CW2xAWecmXCb5Y5ku 47T"
+                  <br />
+                  objective: <br />
+                  multihash: "QmTGY5N4XSqYivgN1aVxtwx27s5ChC4KoJekq7gjShu GyA"
+                  <br />
+                  token: <br />
+                  address: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2" <br />
+                  cost: <br />
+                  uint256: "7500000000000000" <br />
+                  validator: <br />
+                  address: "0x0000000000000000000000000000000000000000" <br />
+                  lighthouse: <br />
+                  address: "0xD40AC7F1e5401e03D00F5aeC1779D8e5Af4CF9f1" <br />
+                  lighthouseFee: <br />
+                  uint256: "0" <br />
+                  deadline: <br />
+                  uint256: "13154633" <br />
+                  sender: <br />
+                  address: '0x128Fba3E5315118ba075f591b54F8139193663a5' <br />
+                  nonce: <br />
+                  uint256: "0" <br />
+                  signature: [] <br />
+                </code>
+              </p>
+              <p>
+                Next, the Provider detects the match between the messages and
+                starts the process of creating the liability contract. A
+                transaction<sup><a href="#liability" id="liability">3</a></sup>
+                of the form <samp>createLiability(bytes _ask, bytes _bid)</samp>
+                is sent to Ethereum, and the required amount in wrapped ETH is
+                withdrawn from the Gaka-chu address.
+              </p>
+              <p>
+                ROS <samp>trader_node</samp> of art shop agent sees confirmation
+                of the creation of the liability and then transfers control to
+                the ROS <samp>worker_node</samp>.
+              </p>
+              <p class="media">
+                Shop agent logs when a demand message is detected and an offer
+                message is generated
+              </p>
+              <p>
+                <code
+                  style="color: #333; background-color: #f2f2f2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif"
+                >
+                  [rosout][INFO] 2021-09-03 15:44:51,180: New liability added to
+                  persistence queue: address:
+                  "0x94ce20E486CCA74df5f9E69eb6D522c997BFBBc9" <br />
+                  [rosout][INFO] 2021-09-03 15:45:04,987: Append address:
+                  "0x94ce20E486CCA74df5f9E69eb6D522c997BFBBc9" to liability
+                  queue. <br />
+                  [rosout][INFO] 2021-09-03 15:45:04,991: Prepare to start
+                  liability 0x94ce20E486CCA74df5f9E69eb6D522c997BFBBc9 <br />
+                  [rosout][INFO] 2021-09-03 15:45:04,994: Use directory
+                  /home/user/.ros/liabilities_executions/ <br />
+                  0x94ce20E486CCA74df5f9E69eb6D522c997BFBBc9 for liability
+                  0x94ce20E486CCA74df5f9E69eb6D522c997BFBBc9 executor thread
+                  <br />
+                  [rosout][INFO] 2021-09-03 15:45:04,997: Liability read
+                  successfully: address:
+                  "0x94ce20E486CCA74df5f9E69eb6D522c997BFBBc9" <br />
+                </code>
+              </p>
+              <p>
+                The ROS <samp>worker_node</samp> executes the purchase order and
+                then sends a confirmation message. Since the validator (another
+                Robonomics node that verifies the liability results) was not
+                specified when creating the <samp>demand</samp> message, the
+                task is considered completed.
+              </p>
+              <p class="media">
+                <samp>Worker_node</samp> logs on order execution
+              </p>
+              <p>
+                <code
+                  style="color: #333; background-color: #f2f2f2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif"
+                >
+                  [rosout][INFO] 2021-09-06 10:22:11,135: Launching worker
+                  node... <br />
+                  [rosout][INFO] 2021-09-06 10:22:11,141: Worker node is
+                  launched <br />
+                  [rospy.internal][INFO] 2021-09-06 10:22:11,143:
+                  topic[/liability/ready] adding connection to
+                  [http://user-airalab-server:36793/], count 0 <br />
+                  [rospy.internal][INFO] 2021-09-06 10:22:11,402: topic[/rosout]
+                  adding connection to [/rosout], count 0 <br />
+                  [rosout][INFO] 2021-09-06 10:22:20,748: Starting process...
+                  <br />
+                  [rosout][INFO] 2021-09-06 10:22:31,128: Process complete.
+                  <br />
+                </code>
+              </p>
+              <p>
+                After that, the Provider finalizes the liability contract (by
+                sending a transaction<sup
+                  ><a href="#finalize" id="finalize">4</a></sup
+                >
+                of the form
+                <samp
+                  >finalizeLiability(address _liability, bytes _result, bool
+                  _success, bytes _signature)</samp
+                >
+                ). Funds in wrapped ETH blocked on the contract are sent to the
+                store address, and the Provider receives rewards in the form of
+                issued Robonomics Network tokens (XRT). That is, in fact, the
+                Provider performs a function similar to that of miners, placing
+                important economic information on the blockchain.
+              </p>
+              <br />
+              <sup id="aprroval"
+                >2. [<a
+                  href="https://etherscan.io/tx/0xc126e8b32af8b8d6c45c9e83d238c3ed5f0196e88c6d60888d578cff0e56f8ce"
+                  target="_blank"
+                  >https://etherscan.io/tx/0xc126e8b32af8b8d6c45c9e83d238c3ed5f0196e88c6d60888d578cff0e56f8ce</a
+                >]<a href="#aprroval">↩</a></sup
+              >
+              <br />
+              <sup id="liability"
+                >3. [<a
+                  href="https://etherscan.io/tx/0x9990799cc787c6d529197d3fd40316be3e43d87f0e12914fbd13ba3262c1232b"
+                  target="_blank"
+                  >https://etherscan.io/tx/0x9990799cc787c6d529197d3fd40316be3e43d87f0e12914fbd13ba3262c1232b</a
+                >]<a href="#liability">↩</a></sup
+              >
+              <br />
+              <sup id="finalize"
+                >4. [<a
+                  href="https://etherscan.io/tx/0xd06dd0920d1d30ffc5015c7373647580140e010783788bf28f3272a5e50798ce"
+                  target="_blank"
+                  >https://etherscan.io/tx/0xd06dd0920d1d30ffc5015c7373647580140e010783788bf28f3272a5e50798ce</a
+                >]<a href="#finalize">↩</a></sup
+              >
+            </div>
+            <div class="logo">
+              <h2>Links to code repositories</h2>
+              <v-simple-table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Link</th>
+                  </tr>
+                  <tr>
+                    <td>Gaka-chu software repositories</td>
+                    <td>repos</td>
+                    <td>
+                      <a
+                        href="https://github.com/Multi-Agent-io/gaka-chu.online"
+                        target="_blank"
+                        >Link</a
+                      >
+                    </td>
+                  </tr>
+                </thead>
+              </v-simple-table>
+            </div>
+            <div class="logo">
               <h2>Videos</h2>
             </div>
             <div class="media">
-              <p>
-                Gaka-Chu: The Robot That Dreams of Being an Artist
-              </p>
+              <p>Gaka-Chu: The Robot That Dreams of Being an Artist</p>
               <iframe
                 width="560"
                 height="315"
@@ -300,9 +684,7 @@
               ></iframe>
             </div>
             <div class="media">
-              <p>
-                Gaka-chu draws Twitter trending words from hashtags
-              </p>
+              <p>Gaka-chu draws Twitter trending words from hashtags</p>
               <iframe
                 width="560"
                 height="315"
@@ -314,9 +696,7 @@
               ></iframe>
             </div>
             <div class="media">
-              <p>
-                First launches of Gaka-chu
-              </p>
+              <p>First launches of Gaka-chu</p>
               <iframe
                 width="560"
                 height="315"
@@ -332,48 +712,38 @@
             </div>
             <div class="media">
               <img
-                src="../../../public/assets/i/gaka-chu-first-step.jpg"
+                src="../../../public/assets/i/gakachu-firsts-steps.jpg"
                 width="60%"
               />
-              <p>
-                First steps of Gaka-chu
-              </p>
+              <p>First steps of Gaka-chu</p>
             </div>
             <div class="media">
               <img
-                src="../../../public/assets/i/drawing-room.jpg"
+                src="../../../public/assets/i/gakachu-old-room.png"
                 width="60%"
               />
-              <p>
-                The first drawing room for Gaka-chu in Tolyatti
-              </p>
+              <p>The first drawing room for Gaka-chu in Tolyatti</p>
             </div>
             <div class="media">
               <img
-                src="../../../public/assets/i/drawing-room-tgl-2.jpg"
+                src="../../../public/assets/i/gakachu-old-work.jpg"
                 width="60%"
               />
-              <p>
-                Gaka-chu is working in the old drawing room, Tolyatti
-              </p>
+              <p>Gaka-chu is working in the old drawing room, Tolyatti</p>
             </div>
             <div class="media">
               <img
-                src="../../../public/assets/i/gaka-chu-spb.jpg"
+                src="../../../public/assets/i/gaka-chu-new-room.jpg"
                 width="60%"
               />
-              <p>
-                Gaka-chu in a new place, St. Petersburg
-              </p>
+              <p>Gaka-chu in a new place, St. Petersburg</p>
             </div>
             <div class="media">
               <img
-                src="../../../public/assets/i/gaka-chu-completed.jpg"
+                src="../../../public/assets/i/gakachu-new-work.jpg"
                 width="60%"
               />
-              <p>
-                Completed work with the phrase "Women's History Month"
-              </p>
+              <p>Completed work with the phrase "Women's History Month"</p>
             </div>
             <v-dialog v-model="dialog" width="500">
               <v-card>
@@ -476,6 +846,15 @@ export default {
   padding-right: 19%;
   text-align: center;
 }
+
+/* .mycode {
+  font-family: Consolas, "courier new";
+  color: rgb(10, 77, 13);
+  background-color: #2b491d;
+  padding: 2px;
+  font-size: 105%;
+  color: black; */
+/* }  */
 
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
