@@ -50,7 +50,7 @@
               <div class="media">
                 <img
                   src="../../../public/assets/i/gaka-chu-ros-nodes.png"
-                  width="60%"
+                  width="100%"
                 />
                 <p>
                   Scheme of the Gaka-chu software in ROS terms; ROS nodes and
@@ -411,7 +411,7 @@
               <p class="media">Gaka-chu logs when forming the order</p>
               <p>
                 <code
-                  style="color: #333; background-color: #f2f2f2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif"
+                  style="color: #333; background-color: #f2f2f2; display:block; white-space:pre-wrap; font-family: monospace"
                 >
                   [rosout][INFO] 2021-09-03 15:43:44,624: Previous number of
                   canvases: 2 <br />
@@ -459,7 +459,7 @@
               </p>
               <p>
                 <code
-                  style="color: #333; background-color: #f2f2f2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif"
+                  style="color: #333; background-color: #f2f2f2; display:block; white-space:pre-wrap; font-family: monospace"
                 >
                   import rosbag <br />
                   from std_msgs.msg import String <br />
@@ -482,7 +482,7 @@
               </p>
               <p>
                 <code
-                  style="color: #333; background-color: #f2f2f2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif"
+                  style="color: #333; background-color: #f2f2f2; display:block; white-space:pre-wrap; font-family: monospace"
                 >
                   [rosout][INFO] 2021-09-03 15:43:47,320: Incoming demand model:
                   <br />
@@ -555,7 +555,7 @@
               </p>
               <p>
                 <code
-                  style="color: #333; background-color: #f2f2f2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif"
+                  style="color: #333; background-color: #f2f2f2; display:block; white-space:pre-wrap; font-family: monospace"
                 >
                   [rosout][INFO] 2021-09-03 15:44:51,180: New liability added to
                   persistence queue: address:
@@ -587,7 +587,7 @@
               </p>
               <p>
                 <code
-                  style="color: #333; background-color: #f2f2f2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif"
+                  style="color: #333; background-color: #f2f2f2; display:block; white-space:pre-wrap; font-family: monospace"
                 >
                   [rosout][INFO] 2021-09-06 10:22:11,135: Launching worker
                   node... <br />
@@ -846,15 +846,6 @@ export default {
   padding-right: 19%;
   text-align: center;
 }
-
-/* .mycode {
-  font-family: Consolas, "courier new";
-  color: rgb(10, 77, 13);
-  background-color: #2b491d;
-  padding: 2px;
-  font-size: 105%;
-  color: black; */
-/* }  */
 
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
