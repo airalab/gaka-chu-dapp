@@ -50,7 +50,7 @@
               <div class="media">
                 <img
                   src="../../../public/assets/i/gaka-chu-ros-nodes.png"
-                  width="100%"
+                  width="120%"
                 />
                 <p>
                   Scheme of the Gaka-chu software in ROS terms; ROS nodes and
@@ -359,7 +359,7 @@
                 Below are the results obtained during one of the test for
                 purchase of consumables. Agent-agent interaction in the
                 Robonomics Network runs through an intermediary, the so-called
-                ``Provider'' node, which searches for a match between supply and
+                "Provider" node, which searches for a match between supply and
                 demand. Providers are controlled by the "Lighthouse" - a special
                 smart contract, which performs a transaction to Ethereum when
                 the Provider finds a match. <br />
@@ -408,8 +408,7 @@
                 robot first generates the <samp>demand</samp> message to send to
                 IPFS pubsub.
               </p>
-              <p class="media">Gaka-chu logs when forming the order</p>
-              <p>
+              <div>
                 <code
                   style="color: #333; background-color: #f2f2f2; display:block; white-space:pre-wrap; font-family: monospace"
                 >
@@ -446,7 +445,8 @@
                   signature: [] <br />
                   [rosout][INFO] 2021-09-03 15:43:46,962: Published!
                 </code>
-              </p>
+                <p class="media">Gaka-chu logs when forming the order</p>
+              </div>
               <p>
                 Here, the <samp>model</samp> field contains an IPFS link to the
                 file, with a description of the required service, which
@@ -454,10 +454,7 @@
                 <samp>objective</samp> field contains an IPFS link to the rosbag
                 file with order parameters.
               </p>
-              <p class="media">
-                Python script that creates a rosbag file with order parameters
-              </p>
-              <p>
+              <div>
                 <code
                   style="color: #333; background-color: #f2f2f2; display:block; white-space:pre-wrap; font-family: monospace"
                 >
@@ -470,17 +467,16 @@
                   bag.write('/paint', String("1")) <br />
                   bag.close() <br />
                 </code>
-              </p>
+                <p class="media">
+                  Python script that creates a rosbag file with order parameters
+                </p>
+              </div>
               <p>
                 ROS <samp>trader_node</samp> of art shop agent, upon seeing the
                 <samp>demand</samp> message, generates a counter
                 <samp>offer</samp> message and also sends it to IPFS pubsub.
               </p>
-              <p class="media">
-                Shop agent logs when a demand message is detected and an offer
-                message is generated
-              </p>
-              <p>
+              <div>
                 <code
                   style="color: #333; background-color: #f2f2f2; display:block; white-space:pre-wrap; font-family: monospace"
                 >
@@ -535,7 +531,11 @@
                   uint256: "0" <br />
                   signature: [] <br />
                 </code>
-              </p>
+                <p class="media">
+                  Shop agent logs when a demand message is detected and an offer
+                  message is generated
+                </p>
+              </div>
               <p>
                 Next, the Provider detects the match between the messages and
                 starts the process of creating the liability contract. A
@@ -549,11 +549,7 @@
                 of the creation of the liability and then transfers control to
                 the ROS <samp>worker_node</samp>.
               </p>
-              <p class="media">
-                Shop agent logs when a demand message is detected and an offer
-                message is generated
-              </p>
-              <p>
+              <div>
                 <code
                   style="color: #333; background-color: #f2f2f2; display:block; white-space:pre-wrap; font-family: monospace"
                 >
@@ -574,7 +570,11 @@
                   successfully: address:
                   "0x94ce20E486CCA74df5f9E69eb6D522c997BFBBc9" <br />
                 </code>
-              </p>
+                <p class="media">
+                  Shop agent logs when a demand message is detected and an offer
+                  message is generated
+                </p>
+              </div>
               <p>
                 The ROS <samp>worker_node</samp> executes the purchase order and
                 then sends a confirmation message. Since the validator (another
@@ -582,10 +582,7 @@
                 specified when creating the <samp>demand</samp> message, the
                 task is considered completed.
               </p>
-              <p class="media">
-                <samp>Worker_node</samp> logs on order execution
-              </p>
-              <p>
+              <div>
                 <code
                   style="color: #333; background-color: #f2f2f2; display:block; white-space:pre-wrap; font-family: monospace"
                 >
@@ -603,7 +600,10 @@
                   [rosout][INFO] 2021-09-06 10:22:31,128: Process complete.
                   <br />
                 </code>
-              </p>
+                <p class="media">
+                  <samp>Worker_node</samp> logs on order execution
+                </p>
+              </div>
               <p>
                 After that, the Provider finalizes the liability contract (by
                 sending a transaction<sup
@@ -672,7 +672,6 @@
               <h2>Videos</h2>
             </div>
             <div class="media">
-              <p>Gaka-Chu: The Robot That Dreams of Being an Artist</p>
               <iframe
                 width="560"
                 height="315"
@@ -682,9 +681,9 @@
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
               ></iframe>
+              <p>Gaka-Chu: The Robot That Dreams of Being an Artist</p>
             </div>
             <div class="media">
-              <p>Gaka-chu draws Twitter trending words from hashtags</p>
               <iframe
                 width="560"
                 height="315"
@@ -694,9 +693,9 @@
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
               ></iframe>
+              <p>Gaka-chu draws Twitter trending words from hashtags</p>
             </div>
             <div class="media">
-              <p>First launches of Gaka-chu</p>
               <iframe
                 width="560"
                 height="315"
@@ -706,6 +705,7 @@
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
               ></iframe>
+              <p>First launches of Gaka-chu</p>
             </div>
             <div class="logo">
               <h2>Photos</h2>
