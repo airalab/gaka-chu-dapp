@@ -43,6 +43,17 @@
                 economically autonomous robots.
               </p>
             </v-card-text>
+            <div class="media">
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/l7NIBH861Uk"
+                title="Gaka-chu: a self-employed autonomous robot artist (IEEE ICRA 2023)"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
             <div class="logo">
               <h2>Software Architecture of Gaka-chu</h2>
             </div>
